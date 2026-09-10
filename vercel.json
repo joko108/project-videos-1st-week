@@ -3,14 +3,14 @@
   "name": "project-videos-1st-week",
   "builds": [
     {
-      "src": "src/insex.ts",
+      "src": "src/index.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/insex.ts"
+      "dest": "src/index.ts"
     }
   ]
 }
