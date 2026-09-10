@@ -95,6 +95,12 @@ app.delete('/videos/:id', (req: RequestWithParams<URIParamsVideoModel>,
         return;
     }
 
+    const index = db.videos.findIndex(v => v.id === +req.params.id);
+    if (index === -1) {
+        res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
+        return;
+    }
+
     db.videos = db.videos.filter(v => v.id !== +req.params.id);
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
 });
