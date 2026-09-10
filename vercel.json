@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "project-videos-1st-week",
+  "builds": [
+    {
+      "src": "src/insex.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/insex.ts"
+    }
+  ]
+}
