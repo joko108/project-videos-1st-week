@@ -1,6 +1,6 @@
 import type { CreateVideoModel } from "./model/CreateNewModel.js";
 import type { UpdateVideoModel } from "./model/UpdateVideoModel.js";
-import type { AvailableResolutions } from "./db/db.js";
+import { type AvailableResolutions, validResolutions } from "./db/db.js";
 
 type ValidationError = { message: string; field: string};
 
@@ -16,9 +16,12 @@ const validateTitle = (title: string | undefined): ValidationError[] => {
 const validateAuthor = (author: string | undefined): ValidationError[] => {
     if (!author || author.trim() === "") {
         return [{ message: "author is required", field: "author" }];
-    } else if (author.length > 20) {
+    }
+
+    if (author.length > 20) {
         return [{ message: "author's name is too long", field: "author" }];
     }
+
     return [];
 };
 
@@ -26,6 +29,13 @@ const validateResolution = (resolution: AvailableResolutions[] | undefined): Val
     if (!resolution || resolution.length === 0) {
         return [{ message: "availableResolutions is required", field: "availableResolutions" }];
     }
+
+    for (let item of resolution) {
+        if (validResolutions.includes(item)) {
+            return [{ message: "invalid availableResolutions", field: "availableResolutions" }];
+        }
+    }
+
     return [];
 };
 
