@@ -57,8 +57,14 @@ const validateMinAgeRestriction = (age: number | null | undefined): ValidationEr
 
 const validatePublicationDate = (date: string | undefined): ValidationError[] => {
     if (!date || date.trim() === "") {
-        return [{ message: "publicationDate is required", field: "publicationDate" }]
+        return [{ message: "publicationDate is required", field: "publicationDate" }];
     }
+
+    const validDate = new Date(date);
+    if (!validDate.toISOString()) {
+        return [{ message: "invalid publicationDate", field: "publicationDate" }];
+    }
+
     return [];
 };
 
