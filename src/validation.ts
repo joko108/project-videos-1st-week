@@ -1,6 +1,6 @@
 import type { CreateVideoModel } from "./model/CreateNewModel.js";
 import type { UpdateVideoModel } from "./model/UpdateVideoModel.js";
-import {type AvailableResolutions, validResolutions} from "./db/db.js";
+import { type AvailableResolutions, validResolutions } from "./db/db.js";
 
 type ValidationError = { message: string; field: string};
 
@@ -28,7 +28,7 @@ const validateResolution = (resolution: AvailableResolutions[] | undefined): Val
         return [{ message: "availableResolutions is required", field: "availableResolutions" }];
     }
 
-    for (let item of resolution) {
+    for (const item of resolution) {
         if (!validResolutions.includes(item)) {
             return [{ message: "invalid availableResolutions", field: "availableResolutions" }];
         }
@@ -58,6 +58,10 @@ const validateMinAgeRestriction = (age: number | null | undefined): ValidationEr
 const validatePublicationDate = (date: string | undefined): ValidationError[] => {
     if (!date || date.trim() === "") {
         return [{ message: "publicationDate is required", field: "publicationDate" }];
+    }
+
+    if (date !== typeof Date) {
+        return [{ message: "invalid date", field: "publicationDate" }];
     }
     return [];
 };
