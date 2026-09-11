@@ -60,9 +60,9 @@ const validatePublicationDate = (date: string | undefined): ValidationError[] =>
         return [{ message: "publicationDate is required", field: "publicationDate" }];
     }
 
-    if (date !== typeof Date) {
-        return [{ message: "invalid date", field: "publicationDate" }];
-    }
+    // if (date !== typeof Date) {
+    //     return [{ message: "invalid date", field: "publicationDate" }];
+    // }
     return [];
 };
 
