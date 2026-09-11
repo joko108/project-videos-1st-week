@@ -13,14 +13,14 @@ export const getVideosRouter = (db: DBType) => {
     const router: Router = express.Router();
 
     // Return all videos
-    router.get('/videos', (_req: Request, res: Response<VideoType[]>) => {
+    router.get('/', (_req: Request, res: Response<VideoType[]>) => {
         let foundVideos = db.videos;
 
         res.status(HTTP_STATUSES.OK_200).json(foundVideos);
     });
 
     // Return video by ID
-    router.get('/videos/:id', (req: RequestWithParams<URIParamsVideoModel>,
+    router.get('/:id', (req: RequestWithParams<URIParamsVideoModel>,
                                res: Response<VideoType>) => {
         const foundVideo = db.videos.find(v => v.id === +req.params.id);
         if (!foundVideo) {
@@ -31,7 +31,7 @@ export const getVideosRouter = (db: DBType) => {
     });
 
     // Create new video
-    router.post('/videos', (req: RequestWithBody<CreateVideoModel>,
+    router.post('/', (req: RequestWithBody<CreateVideoModel>,
                             res: Response<VideoType | ErrorsMessagesModel>) => {
 
         const errors = validateCreateVideo(req.body);
@@ -62,7 +62,7 @@ export const getVideosRouter = (db: DBType) => {
     });
 
     // Update existing video by ID with inputModel
-    router.put('/videos/:id', (req: RequestWithParamsAndBody<URIParamsVideoModel, UpdateVideoModel>,
+    router.put('/:id', (req: RequestWithParamsAndBody<URIParamsVideoModel, UpdateVideoModel>,
                                res: Response<ErrorsMessagesModel>) => {
 
         const errors = validateUpdateVideo(req.body);
@@ -82,7 +82,7 @@ export const getVideosRouter = (db: DBType) => {
     });
 
     // Delete video specified by ID
-    router.delete('/videos/:id', (req: RequestWithParams<URIParamsVideoModel>,
+    router.delete('/:id', (req: RequestWithParams<URIParamsVideoModel>,
                                   res: Response) => {
         if (!req.params.id) {
             res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
