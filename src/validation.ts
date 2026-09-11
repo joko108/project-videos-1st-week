@@ -4,6 +4,8 @@ import { type AvailableResolutions, validResolutions } from "./db/db.js";
 
 type ValidationError = { message: string; field: string};
 
+const ISO_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z$/;
+
 const validateTitle = (title: string | undefined): ValidationError[] => {
     if (!title || title.trim() === "") {
         return [{ message: "title is required", field: "title" }];
@@ -60,9 +62,15 @@ const validatePublicationDate = (date: string | undefined): ValidationError[] =>
         return [{ message: "publicationDate is required", field: "publicationDate" }];
     }
 
-    // if (date !== typeof Date) {
-    //     return [{ message: "invalid date", field: "publicationDate" }];
-    // }
+    if (!ISO_DATE_FORMAT.test(date)) {
+        return [{ message: "Invalid date format", field: "publicationDate" }];
+    }
+
+    const parseDate = new Date(date);
+    if (isNaN(parseDate.getTime())) {
+        return [{ message: "Invalid date format", field: "publicationDate" }];
+    }
+
     return [];
 };
 
