@@ -1,8 +1,8 @@
-import express, {type Express} from "express";
-import {db} from "./db/db.js";
+import express, { type Express } from "express";
+import { db } from "./db/db.js";
 import cors from "cors";
-import {getVideosRouter} from "./routes/videos.js";
-import {getTestRouter} from "./routes/test.js";
+import { getVideosRouter } from "./routes/videos.js";
+import { getTestRouter } from "./routes/test.js";
 
 export const app: Express = express();
 

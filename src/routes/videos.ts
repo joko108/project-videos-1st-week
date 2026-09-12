@@ -1,21 +1,20 @@
 import express, {type Router} from 'express';
 import type { Request, Response } from "express";
-import type {RequestWithBody, RequestWithParams, RequestWithParamsAndBody} from "../types.js";
-import type {URIParamsVideoModel} from "../model/URIParamsVideoModel.js";
-import {type DBType, type VideoType} from "../db/db.js";
-import {HTTP_STATUSES} from "../utils.js";
-import {validateCreateVideo, validateUpdateVideo} from "../validation.js";
-import type {ErrorsMessagesModel} from "../model/ErrorsMessagesModel.js";
-import type {CreateVideoModel} from "../model/CreateNewModel.js";
-import type {UpdateVideoModel} from "../model/UpdateVideoModel.js";
+import type { RequestWithBody, RequestWithParams, RequestWithParamsAndBody } from "../types.js";
+import type { URIParamsVideoModel } from "../model/URIParamsVideoModel.js";
+import type { DBType, VideoType } from "../db/db.js";
+import { HTTP_STATUSES } from "../utils.js";
+import { validateCreateVideo, validateUpdateVideo } from "../validation.js";
+import type { ErrorsMessagesModel } from "../model/ErrorsMessagesModel.js";
+import type { CreateVideoModel } from "../model/CreateNewModel.js";
+import type { UpdateVideoModel } from "../model/UpdateVideoModel.js";
 
 export const getVideosRouter = (db: DBType) => {
     const router: Router = express.Router();
 
     // Return all videos
     router.get('/', (_req: Request, res: Response<VideoType[]>) => {
-        let foundVideos = db.videos;
-
+        const foundVideos = db.videos;
         res.status(HTTP_STATUSES.OK_200).json(foundVideos);
     });
 
